@@ -1,3 +1,4 @@
+import Link from 'next/link';
 export default function Home() {
   return (
     <main className="flex min-h-screen flex-col items-center p-4 pt-8">
@@ -9,9 +10,9 @@ export default function Home() {
           Find the perfect counter picks for your matches and improve your win rate!
         </p>
         
-        <a href="/heroes" className="inline-block bg-gradient-to-r from-blue-500 to-blue-700 hover:from-blue-600 hover:to-blue-800 text-white font-bold py-3 px-6 rounded-lg transition duration-300 shadow-lg hover:shadow-xl transform hover:-translate-y-1">
-          Explore Heroes
-        </a>
+        <Link href="/heroes" className="inline-block bg-gradient-to-r from-blue-500 to-blue-700 hover:from-blue-600 hover:to-blue-800 text-white font-bold py-3 px-6 rounded-lg transition duration-300 shadow-lg hover:shadow-xl transform hover:-translate-y-1">
+  Explore Heroes
+</Link>
       </div>
       
       <section className="max-w-4xl w-full bg-gray-800 bg-opacity-70 rounded-xl shadow-xl p-8 mb-10 border border-gray-700">

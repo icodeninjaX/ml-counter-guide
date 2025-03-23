@@ -1,6 +1,7 @@
 'use client';
 
 import { useState, useEffect } from 'react';
+import Link from 'next/link';
 
 export default function HeroDetail({ params }) {
   const [activeTab, setActiveTab] = useState('overview');
@@ -74,7 +75,7 @@ export default function HeroDetail({ params }) {
         { id: 3, name: 'Eudora', reason: 'Can hold enemies in place for Eudora\'s burst damage' }
       ],
       skills: [
-        { name: 'Fearless', type: 'Passive', description: 'When Tigreals HP falls below 30%, he gains extra Physical and Magic Defense for a short period of time.' },
+        { name: 'Fearless', type: 'Passive', description: 'When Tigreal\'s HP falls below 30%, he gains extra Physical and Magic Defense for a short period of time.' },
         { name: 'Attack Wave', type: 'Skill 1', description: 'Tigreal releases a shockwave in a specified direction, dealing physical damage to enemies hit and slowing them down.' },
         { name: 'Sacred Hammer', type: 'Skill 2', description: 'Tigreal charges in a specified direction, dealing physical damage to enemies and pushing them back.' },
         { name: 'Implosion', type: 'Ultimate', description: 'Tigreal slams the ground with his hammer, pulling surrounding enemies to him and stunning them.' }
@@ -221,10 +222,10 @@ export default function HeroDetail({ params }) {
             <path strokeLinecap="round" strokeLinejoin="round" strokeWidth={2} d="M9.172 16.172a4 4 0 015.656 0M9 10h.01M15 10h.01M21 12a9 9 0 11-18 0 9 9 0 0118 0z" />
           </svg>
           <h2 className="text-2xl font-bold text-gray-300 mb-2">Hero Not Found</h2>
-          <p className="text-gray-400 mb-6">The hero you're looking for doesn't exist or has been removed.</p>
-          <a href="/heroes" className="bg-blue-600 hover:bg-blue-700 text-white font-bold py-2 px-6 rounded-lg transition duration-300">
+          <p className="text-gray-400 mb-6">The hero you&apos;re looking for doesn&apos;t exist or has been removed.</p>
+          <Link href="/heroes" className="bg-blue-600 hover:bg-blue-700 text-white font-bold py-2 px-6 rounded-lg transition duration-300">
             Go Back to Heroes
-          </a>
+          </Link>
         </div>
       </div>
     );
@@ -261,12 +262,12 @@ export default function HeroDetail({ params }) {
             </div>
           </div>
           
-          <a href="/heroes" className="mt-4 md:mt-0 inline-flex items-center bg-gray-700 hover:bg-gray-600 text-white py-2 px-4 rounded-lg transition duration-300 self-start">
+          <Link href="/heroes" className="mt-4 md:mt-0 inline-flex items-center bg-gray-700 hover:bg-gray-600 text-white py-2 px-4 rounded-lg transition duration-300 self-start">
             <svg className="w-5 h-5 mr-2" fill="none" stroke="currentColor" viewBox="0 0 24 24" xmlns="http://www.w3.org/2000/svg">
               <path strokeLinecap="round" strokeLinejoin="round" strokeWidth={2} d="M10 19l-7-7m0 0l7-7m-7 7h18" />
             </svg>
             Back to Heroes
-          </a>
+          </Link>
         </div>
         
         <p className="text-gray-300 text-lg mb-6">{hero.description}</p>
@@ -374,7 +375,7 @@ export default function HeroDetail({ params }) {
                     <div key={synergy.id} className="bg-gray-800 bg-opacity-70 p-4 rounded-lg shadow-md border-l-4 border-purple-500">
                       <h3 className="font-bold text-lg text-purple-400 mb-1">{synergy.name}</h3>
                       <p className="text-gray-300 mb-2">{synergy.reason}</p>
-                      <a 
+                      <Link 
                         href={`/heroes/${synergy.id}`}
                         className="text-blue-400 hover:text-blue-300 inline-flex items-center transition duration-200"
                       >
@@ -382,7 +383,7 @@ export default function HeroDetail({ params }) {
                         <svg className="w-4 h-4 ml-1" fill="none" stroke="currentColor" viewBox="0 0 24 24" xmlns="http://www.w3.org/2000/svg">
                           <path strokeLinecap="round" strokeLinejoin="round" strokeWidth={2} d="M9 5l7 7-7 7" />
                         </svg>
-                      </a>
+                      </Link>
                     </div>
                   ))}
                 </div>
@@ -433,7 +434,7 @@ export default function HeroDetail({ params }) {
                       <div key={counter.id} className="bg-gray-700 bg-opacity-50 p-4 rounded-lg shadow-md border-l-4 border-green-500">
                         <h3 className="font-bold text-lg text-green-400 mb-1">{counter.name}</h3>
                         <p className="text-gray-300 mb-2">{counter.reason}</p>
-                        <a 
+                        <Link 
                           href={`/heroes/${counter.id}`}
                           className="text-blue-400 hover:text-blue-300 inline-flex items-center transition duration-200"
                         >
@@ -441,7 +442,7 @@ export default function HeroDetail({ params }) {
                           <svg className="w-4 h-4 ml-1" fill="none" stroke="currentColor" viewBox="0 0 24 24" xmlns="http://www.w3.org/2000/svg">
                             <path strokeLinecap="round" strokeLinejoin="round" strokeWidth={2} d="M9 5l7 7-7 7" />
                           </svg>
-                        </a>
+                        </Link>
                       </div>
                     ))}
                   </div>
@@ -455,7 +456,7 @@ export default function HeroDetail({ params }) {
               {/* Heroes that counter this hero */}
               <div>
                 <h2 className="text-2xl font-bold mb-4 text-red-400 flex items-center">
-                  <svg className="w-6 h-6 mr-2" fill="none" stroke="currentColor" viewBox="0 0 24 24" xmlns="http://www.w3.org/2000/svg">
+                <svg className="w-6 h-6 mr-2" fill="none" stroke="currentColor" viewBox="0 0 24 24" xmlns="http://www.w3.org/2000/svg">
                     <path strokeLinecap="round" strokeLinejoin="round" strokeWidth={2} d="M12 8v4m0 4h.01M21 12a9 9 0 11-18 0 9 9 0 0118 0z" />
                   </svg>
                   Heroes that Counter {hero.name}
@@ -467,7 +468,7 @@ export default function HeroDetail({ params }) {
                       <div key={counter.id} className="bg-gray-700 bg-opacity-50 p-4 rounded-lg shadow-md border-l-4 border-red-500">
                         <h3 className="font-bold text-lg text-red-400 mb-1">{counter.name}</h3>
                         <p className="text-gray-300 mb-2">{counter.reason}</p>
-                        <a 
+                        <Link 
                           href={`/heroes/${counter.id}`}
                           className="text-blue-400 hover:text-blue-300 inline-flex items-center transition duration-200"
                         >
@@ -475,7 +476,7 @@ export default function HeroDetail({ params }) {
                           <svg className="w-4 h-4 ml-1" fill="none" stroke="currentColor" viewBox="0 0 24 24" xmlns="http://www.w3.org/2000/svg">
                             <path strokeLinecap="round" strokeLinejoin="round" strokeWidth={2} d="M9 5l7 7-7 7" />
                           </svg>
-                        </a>
+                        </Link>
                       </div>
                     ))}
                   </div>
@@ -553,7 +554,7 @@ export default function HeroDetail({ params }) {
       {/* Next/Previous Hero Navigation */}
       <div className="flex justify-between">
         {parseInt(params.id) > 1 && (
-          <a 
+          <Link 
             href={`/heroes/${parseInt(params.id) - 1}`} 
             className="inline-flex items-center bg-gray-800 hover:bg-gray-700 text-white py-2 px-4 rounded-lg transition duration-300"
           >
@@ -561,11 +562,11 @@ export default function HeroDetail({ params }) {
               <path strokeLinecap="round" strokeLinejoin="round" strokeWidth={2} d="M10 19l-7-7m0 0l7-7m-7 7h18" />
             </svg>
             Previous Hero
-          </a>
+          </Link>
         )}
         
         {parseInt(params.id) < Object.keys(heroes).length && (
-          <a 
+          <Link 
             href={`/heroes/${parseInt(params.id) + 1}`} 
             className="inline-flex items-center bg-gray-800 hover:bg-gray-700 text-white py-2 px-4 rounded-lg transition duration-300 ml-auto"
           >
@@ -573,7 +574,7 @@ export default function HeroDetail({ params }) {
             <svg className="w-5 h-5 ml-2" fill="none" stroke="currentColor" viewBox="0 0 24 24" xmlns="http://www.w3.org/2000/svg">
               <path strokeLinecap="round" strokeLinejoin="round" strokeWidth={2} d="M14 5l7 7m0 0l-7 7m7-7H3" />
             </svg>
-          </a>
+          </Link>
         )}
       </div>
     </div>
