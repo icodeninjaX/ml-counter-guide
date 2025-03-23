@@ -43,7 +43,7 @@ export default function Home() {
       
       <section className="max-w-4xl w-full bg-gray-800 bg-opacity-70 rounded-xl shadow-xl p-8 border border-gray-700">
         <h2 className="text-2xl font-bold mb-4 border-b pb-2 border-blue-500 inline-block text-blue-400">About This Guide</h2>
-        <p className="mb-4 text-gray-300">This guide is designed to help Mobile Legends players make better hero selections through understanding counter picks. Whether you're a beginner or an experienced player, knowing which heroes counter others can give you a significant advantage in matches.</p>
+        <p className="mb-4 text-gray-300">This guide is designed to help Mobile Legends players make better hero selections through understanding counter picks. Whether youre a beginner or an experienced player, knowing which heroes counter others can give you a significant advantage in matches.</p>
         <p className="text-gray-300">Use the navigation to explore heroes and their counters, and improve your gameplay strategy!</p>
       </section>
     </main>
