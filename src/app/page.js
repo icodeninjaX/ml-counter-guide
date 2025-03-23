@@ -31,12 +31,12 @@ export default function Home() {
           
           <div className="bg-gray-700 bg-opacity-50 p-5 rounded-lg shadow-md border-l-4 border-blue-500">
             <h3 className="font-bold text-lg text-blue-300 mb-2">Consider Team Composition</h3>
-            <p className="text-gray-300">Counter-picking isn't just about individual matchups—it's about how your team works together against the enemy team.</p>
+            <p className="text-gray-300">Counter-picking isnt just about individual matchups—its about how your team works together against the enemy team.</p>
           </div>
           
           <div className="bg-gray-700 bg-opacity-50 p-5 rounded-lg shadow-md border-l-4 border-blue-500">
             <h3 className="font-bold text-lg text-blue-300 mb-2">Adapt Your Build</h3>
-            <p className="text-gray-300">Sometimes the right item build can help counter specific heroes, even if your hero isn't a direct counter.</p>
+            <p className="text-gray-300">Sometimes the right item build can help counter specific heroes, even if your hero isnt a direct counter.</p>
           </div>
         </div>
       </section>
