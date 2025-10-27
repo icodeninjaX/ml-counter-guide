@@ -1,7 +1,27 @@
 'use client';
 
-import { useState } from 'react';
+import { useState, useEffect, useCallback } from 'react';
+import { motion } from 'framer-motion';
 import RoleFilter from '../components/RoleFilter';
+import LoadingSkeleton from '../components/LoadingSkeleton';
+import Breadcrumb from '../components/Breadcrumb';
+
+// Custom debounce hook
+function useDebounce(value, delay) {
+  const [debouncedValue, setDebouncedValue] = useState(value);
+
+  useEffect(() => {
+    const handler = setTimeout(() => {
+      setDebouncedValue(value);
+    }, delay);
+
+    return () => {
+      clearTimeout(handler);
+    };
+  }, [value, delay]);
+
+  return debouncedValue;
+}
 
 export default function Heroes() {
   // Hero data with difficulty levels included
@@ -20,11 +40,23 @@ export default function Heroes() {
   const [searchQuery, setSearchQuery] = useState('');
   const [compareList, setCompareList] = useState([]);
   const [showCompareModal, setShowCompareModal] = useState(false);
-  
+  const [isLoading, setIsLoading] = useState(true);
+
+  // Debounce search query
+  const debouncedSearchQuery = useDebounce(searchQuery, 300);
+
+  // Simulate loading effect
+  useEffect(() => {
+    const timer = setTimeout(() => {
+      setIsLoading(false);
+    }, 800);
+    return () => clearTimeout(timer);
+  }, []);
+
   // Filter heroes based on search and role selection
   const filteredHeroes = heroes
     .filter(hero => selectedRole ? hero.role === selectedRole : true)
-    .filter(hero => hero.name.toLowerCase().includes(searchQuery.toLowerCase()));
+    .filter(hero => hero.name.toLowerCase().includes(debouncedSearchQuery.toLowerCase()));
 
   // Handle compare button click
   const handleCompare = (heroId) => {
@@ -55,12 +87,17 @@ export default function Heroes() {
 
   return (
     <div className="py-6">
+      <Breadcrumb />
       <h1 className="text-4xl font-bold mb-8 text-center bg-clip-text text-transparent bg-gradient-to-r from-blue-400 to-purple-500">
         Mobile Legends Heroes
       </h1>
       
       {/* Search and Filter Section */}
-      <div className="mb-10 bg-gray-800 bg-opacity-70 p-6 rounded-xl shadow-lg border border-gray-700">
+      <motion.div
+        initial={{ opacity: 0, y: -20 }}
+        animate={{ opacity: 1, y: 0 }}
+        className="mb-10 glass p-6 rounded-xl shadow-lg border border-gray-700"
+      >
         <div className="relative mb-6">
           <div className="absolute inset-y-0 left-0 pl-3 flex items-center pointer-events-none">
             <svg className="w-5 h-5 text-gray-500" fill="none" stroke="currentColor" viewBox="0 0 24 24" xmlns="http://www.w3.org/2000/svg">
@@ -70,10 +107,28 @@ export default function Heroes() {
           <input
             type="text"
             placeholder="Search heroes..."
-            className="w-full pl-10 p-3 bg-gray-700 border border-gray-600 rounded-lg text-white focus:outline-none focus:ring-2 focus:ring-blue-500 focus:border-transparent"
+            className="w-full pl-10 pr-10 p-3 glass border-2 border-gray-600 rounded-lg text-white placeholder-gray-400 focus:outline-none focus:ring-2 focus:ring-blue-500 focus:border-blue-500 transition-all duration-300"
             value={searchQuery}
             onChange={(e) => setSearchQuery(e.target.value)}
           />
+          {searchQuery && (
+            <motion.button
+              initial={{ scale: 0 }}
+              animate={{ scale: 1 }}
+              exit={{ scale: 0 }}
+              onClick={() => setSearchQuery('')}
+              className="absolute inset-y-0 right-0 pr-3 flex items-center text-gray-400 hover:text-white transition-colors"
+            >
+              <svg className="w-5 h-5" fill="none" stroke="currentColor" viewBox="0 0 24 24" xmlns="http://www.w3.org/2000/svg">
+                <path strokeLinecap="round" strokeLinejoin="round" strokeWidth={2} d="M6 18L18 6M6 6l12 12" />
+              </svg>
+            </motion.button>
+          )}
+          {searchQuery !== debouncedSearchQuery && (
+            <div className="absolute inset-y-0 right-10 flex items-center pr-3">
+              <div className="animate-spin rounded-full h-4 w-4 border-b-2 border-blue-500"></div>
+            </div>
+          )}
         </div>
         
         {/* Role Filter Component */}
@@ -118,58 +173,71 @@ export default function Heroes() {
             </div>
           </div>
         )}
-      </div>
+      </motion.div>
       
       {/* Hero Cards Grid */}
-      <div className="grid grid-cols-1 sm:grid-cols-2 md:grid-cols-3 lg:grid-cols-4 gap-6">
-        {filteredHeroes.map((hero, index) => (
-          <div 
-            key={hero.id} 
-            className={`hero-card bg-gray-800 bg-opacity-70 rounded-xl overflow-hidden shadow-lg border ${
-              compareList.includes(hero.id) ? 'border-blue-500' : 'border-gray-700'
-            } hover:border-blue-500 transition duration-300 transform hover:-translate-y-1 hover:shadow-xl`}
-            style={{ animationDelay: `${index * 0.05}s` }}
-          >
-            <div className="p-6">
-              <h2 className="text-2xl font-bold mb-2 text-blue-400">{hero.name}</h2>
-              <div className="flex flex-wrap gap-2 mb-4">
-                <span className="inline-block bg-gray-700 px-3 py-1 rounded-full text-sm font-semibold text-gray-300">
-                  {hero.role}
-                </span>
-                <span className={`inline-block px-3 py-1 rounded-full text-sm font-semibold ${
-                  hero.difficulty === 'Easy' ? 'bg-green-800 text-green-200' :
-                  hero.difficulty === 'Moderate' ? 'bg-yellow-800 text-yellow-200' :
-                  'bg-red-800 text-red-200'
-                }`}>
-                  {hero.difficulty}
-                </span>
+      {isLoading ? (
+        <LoadingSkeleton />
+      ) : (
+        <div className="grid grid-cols-1 sm:grid-cols-2 md:grid-cols-3 lg:grid-cols-4 gap-6">
+          {filteredHeroes.map((hero, index) => (
+            <motion.div
+              key={hero.id}
+              initial={{ opacity: 0, y: 20 }}
+              animate={{ opacity: 1, y: 0 }}
+              transition={{ delay: index * 0.05, duration: 0.3 }}
+              whileHover={{ y: -8, scale: 1.02 }}
+              className={`glass rounded-xl overflow-hidden shadow-lg border-2 ${
+                compareList.includes(hero.id) ? 'border-blue-500 shadow-blue-500/50' : 'border-gray-700'
+              } hover:border-blue-500 transition-all duration-300 hover:shadow-2xl hover:shadow-blue-500/30`}
+            >
+              <div className="p-6 relative overflow-hidden">
+                {/* Gradient overlay on hover */}
+                <div className="absolute inset-0 bg-gradient-to-br from-blue-500/0 to-purple-500/0 hover:from-blue-500/10 hover:to-purple-500/10 transition-all duration-300 pointer-events-none"></div>
+
+                <h2 className="text-2xl font-bold mb-2 bg-gradient-to-r from-blue-400 to-purple-400 bg-clip-text text-transparent relative z-10">
+                  {hero.name}
+                </h2>
+                <div className="flex flex-wrap gap-2 mb-4 relative z-10">
+                  <span className="inline-block glass px-3 py-1 rounded-full text-sm font-semibold text-gray-300 border border-gray-600">
+                    {hero.role}
+                  </span>
+                  <span className={`inline-block px-3 py-1 rounded-full text-sm font-semibold ${
+                    hero.difficulty === 'Easy' ? 'bg-green-800 text-green-200 border border-green-600' :
+                    hero.difficulty === 'Moderate' ? 'bg-yellow-800 text-yellow-200 border border-yellow-600' :
+                    'bg-red-800 text-red-200 border border-red-600'
+                  }`}>
+                    {hero.difficulty}
+                  </span>
+                </div>
+
+                <div className="flex justify-between mt-4 relative z-10">
+                  <a
+                    href={`/heroes/${hero.id}`}
+                    className="text-center bg-gradient-to-r from-blue-500 to-blue-700 hover:from-blue-600 hover:to-blue-800 text-white font-bold py-2 px-4 rounded-lg transition-all duration-300 flex-grow mr-2 shadow-lg hover:shadow-xl transform hover:scale-105"
+                  >
+                    View Details
+                  </a>
+                  <motion.button
+                    onClick={() => handleCompare(hero.id)}
+                    whileTap={{ scale: 0.9 }}
+                    className={`p-2 rounded-lg transition-all duration-300 ${
+                      compareList.includes(hero.id)
+                        ? 'bg-blue-600 text-white shadow-lg shadow-blue-500/50'
+                        : 'glass text-white hover:bg-gray-600'
+                    }`}
+                    title={compareList.includes(hero.id) ? "Remove from comparison" : "Add to comparison"}
+                  >
+                    <svg className="w-5 h-5" fill="none" stroke="currentColor" viewBox="0 0 24 24" xmlns="http://www.w3.org/2000/svg">
+                      <path strokeLinecap="round" strokeLinejoin="round" strokeWidth={2} d="M9 5H7a2 2 0 00-2 2v12a2 2 0 002 2h10a2 2 0 002-2V7a2 2 0 00-2-2h-2M9 5a2 2 0 002 2h2a2 2 0 002-2M9 5a2 2 0 012-2h2a2 2 0 012 2" />
+                    </svg>
+                  </motion.button>
+                </div>
               </div>
-              
-              <div className="flex justify-between mt-4">
-                <a 
-                  href={`/heroes/${hero.id}`}
-                  className="text-center bg-gradient-to-r from-blue-500 to-blue-700 hover:from-blue-600 hover:to-blue-800 text-white font-bold py-2 px-4 rounded-lg transition duration-300 flex-grow mr-2"
-                >
-                  View Details
-                </a>
-                <button 
-                  onClick={() => handleCompare(hero.id)}
-                  className={`p-2 rounded-lg transition duration-300 ${
-                    compareList.includes(hero.id) 
-                      ? 'bg-blue-600 text-white' 
-                      : 'bg-gray-700 hover:bg-gray-600 text-white'
-                  }`}
-                  title={compareList.includes(hero.id) ? "Remove from comparison" : "Add to comparison"}
-                >
-                  <svg className="w-5 h-5" fill="none" stroke="currentColor" viewBox="0 0 24 24" xmlns="http://www.w3.org/2000/svg">
-                    <path strokeLinecap="round" strokeLinejoin="round" strokeWidth={2} d="M9 5H7a2 2 0 00-2 2v12a2 2 0 002 2h10a2 2 0 002-2V7a2 2 0 00-2-2h-2M9 5a2 2 0 002 2h2a2 2 0 002-2M9 5a2 2 0 012-2h2a2 2 0 012 2" />
-                  </svg>
-                </button>
-              </div>
-            </div>
-          </div>
-        ))}
-      </div>
+            </motion.div>
+          ))}
+        </div>
+      )}
       
       {/* Empty State */}
       {filteredHeroes.length === 0 && (
@@ -183,50 +251,97 @@ export default function Heroes() {
       
       {/* Comparison Modal */}
       {showCompareModal && (
-        <div className="fixed inset-0 bg-black bg-opacity-70 flex items-center justify-center z-50 p-4">
-          <div className="bg-gray-800 rounded-xl max-w-4xl w-full max-h-[90vh] overflow-y-auto p-6">
+        <motion.div
+          initial={{ opacity: 0 }}
+          animate={{ opacity: 1 }}
+          exit={{ opacity: 0 }}
+          className="fixed inset-0 bg-black bg-opacity-80 backdrop-blur-sm flex items-center justify-center z-50 p-4"
+          onClick={() => setShowCompareModal(false)}
+        >
+          <motion.div
+            initial={{ scale: 0.9, y: 20 }}
+            animate={{ scale: 1, y: 0 }}
+            exit={{ scale: 0.9, y: 20 }}
+            className="glass rounded-xl max-w-4xl w-full max-h-[90vh] overflow-y-auto p-6 border-2 border-blue-500/30 shadow-2xl"
+            onClick={(e) => e.stopPropagation()}
+          >
             <div className="flex justify-between items-center mb-6">
-              <h3 className="text-2xl font-bold text-blue-400">Hero Comparison</h3>
-              <button 
+              <h3 className="text-3xl font-bold bg-gradient-to-r from-blue-400 to-purple-400 bg-clip-text text-transparent">
+                Hero Comparison
+              </h3>
+              <motion.button
                 onClick={() => setShowCompareModal(false)}
-                className="text-gray-400 hover:text-white"
+                whileHover={{ rotate: 90, scale: 1.1 }}
+                whileTap={{ scale: 0.9 }}
+                className="text-gray-400 hover:text-white p-2 rounded-full hover:bg-gray-700 transition-colors"
               >
                 <svg className="w-6 h-6" fill="none" stroke="currentColor" viewBox="0 0 24 24" xmlns="http://www.w3.org/2000/svg">
                   <path strokeLinecap="round" strokeLinejoin="round" strokeWidth={2} d="M6 18L18 6M6 6l12 12" />
                 </svg>
-              </button>
+              </motion.button>
             </div>
-            
-            <div className="grid grid-cols-2 gap-4">
-              {compareList.map(id => {
+
+            <div className="grid grid-cols-1 md:grid-cols-2 gap-6">
+              {compareList.map((id, index) => {
                 const hero = heroes.find(h => h.id === id);
                 return hero ? (
-                  <div key={id} className="bg-gray-700 p-4 rounded-lg">
-                    <h4 className="text-xl font-bold text-blue-300 mb-2">{hero.name}</h4>
-                    <div className="space-y-2">
-                      <p><span className="text-gray-400">Role:</span> {hero.role}</p>
-                      <p><span className="text-gray-400">Difficulty:</span> {hero.difficulty}</p>
-                      
-                      {/* This is a placeholder for additional comparison data */}
-                      <div className="mt-4 pt-4 border-t border-gray-600">
-                        <p className="text-gray-300">For a complete comparison, view the detailed hero pages.</p>
+                  <motion.div
+                    key={id}
+                    initial={{ opacity: 0, x: index === 0 ? -20 : 20 }}
+                    animate={{ opacity: 1, x: 0 }}
+                    transition={{ delay: index * 0.1 }}
+                    className="bg-gradient-to-br from-gray-800/50 to-gray-900/50 p-6 rounded-xl border-2 border-gray-700 hover:border-blue-500/50 transition-all duration-300 shadow-lg"
+                  >
+                    <h4 className="text-2xl font-bold bg-gradient-to-r from-blue-400 to-purple-400 bg-clip-text text-transparent mb-4">
+                      {hero.name}
+                    </h4>
+                    <div className="space-y-3">
+                      <div className="flex items-center justify-between p-3 bg-gray-700/30 rounded-lg">
+                        <span className="text-gray-400 font-medium">Role:</span>
+                        <span className="glass px-3 py-1 rounded-full text-sm font-semibold text-gray-300 border border-gray-600">
+                          {hero.role}
+                        </span>
+                      </div>
+                      <div className="flex items-center justify-between p-3 bg-gray-700/30 rounded-lg">
+                        <span className="text-gray-400 font-medium">Difficulty:</span>
+                        <span className={`px-3 py-1 rounded-full text-sm font-semibold ${
+                          hero.difficulty === 'Easy' ? 'bg-green-800 text-green-200 border border-green-600' :
+                          hero.difficulty === 'Moderate' ? 'bg-yellow-800 text-yellow-200 border border-yellow-600' :
+                          'bg-red-800 text-red-200 border border-red-600'
+                        }`}>
+                          {hero.difficulty}
+                        </span>
+                      </div>
+
+                      <div className="mt-6 pt-4 border-t border-gray-600">
+                        <a
+                          href={`/heroes/${hero.id}`}
+                          className="inline-flex items-center text-blue-400 hover:text-blue-300 transition-colors"
+                        >
+                          View detailed stats
+                          <svg className="w-4 h-4 ml-1" fill="none" stroke="currentColor" viewBox="0 0 24 24" xmlns="http://www.w3.org/2000/svg">
+                            <path strokeLinecap="round" strokeLinejoin="round" strokeWidth={2} d="M9 5l7 7-7 7" />
+                          </svg>
+                        </a>
                       </div>
                     </div>
-                  </div>
+                  </motion.div>
                 ) : null;
               })}
             </div>
-            
-            <div className="flex justify-center mt-6">
-              <button 
+
+            <div className="flex justify-center gap-4 mt-8">
+              <motion.button
                 onClick={() => setShowCompareModal(false)}
-                className="bg-blue-600 hover:bg-blue-700 text-white py-2 px-6 rounded-lg"
+                whileHover={{ scale: 1.05 }}
+                whileTap={{ scale: 0.95 }}
+                className="bg-gradient-to-r from-blue-600 to-blue-700 hover:from-blue-700 hover:to-blue-800 text-white py-3 px-8 rounded-lg font-semibold shadow-lg hover:shadow-xl transition-all duration-300"
               >
                 Close
-              </button>
+              </motion.button>
             </div>
-          </div>
-        </div>
+          </motion.div>
+        </motion.div>
       )}
     </div>
   );
