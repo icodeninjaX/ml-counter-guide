@@ -44,7 +44,7 @@ export default function Footer() {
   ];
 
   return (
-    <footer className="glass border-t border-gray-700 py-8 mt-12">
+    <footer className="glass border-t border-gray-300 dark:border-gray-700 py-8 mt-12 bg-gray-50 dark:bg-transparent">
       <div className="container mx-auto px-4">
         <div className="grid grid-cols-1 md:grid-cols-3 gap-8 mb-8">
           {/* Brand Section */}
@@ -60,11 +60,11 @@ export default function Footer() {
                   <path fillRule="evenodd" d="M11.3 1.046A1 1 0 0112 2v5h4a1 1 0 01.82 1.573l-7 10A1 1 0 018 18v-5H4a1 1 0 01-.82-1.573l7-10a1 1 0 011.12-.38z" clipRule="evenodd" />
                 </svg>
               </span>
-              <span className="text-xl font-bold bg-gradient-to-r from-blue-400 to-purple-400 bg-clip-text text-transparent">
+              <span className="text-xl font-bold bg-gradient-to-r from-blue-500 to-purple-600 dark:from-blue-400 dark:to-purple-400 bg-clip-text text-transparent">
                 ML Counter Guide
               </span>
             </div>
-            <p className="text-gray-400 text-sm">
+            <p className="text-gray-600 dark:text-gray-400 text-sm">
               Your ultimate resource for Mobile Legends counter picks and strategies.
             </p>
           </motion.div>
@@ -77,7 +77,7 @@ export default function Footer() {
             transition={{ delay: 0.1 }}
             className="text-center md:text-left"
           >
-            <h3 className="text-white font-semibold mb-3">Quick Links</h3>
+            <h3 className="text-gray-800 dark:text-white font-semibold mb-3">Quick Links</h3>
             <div className="flex flex-col space-y-2">
               {navLinks.map((link, index) => (
                 <motion.div
@@ -89,7 +89,7 @@ export default function Footer() {
                 >
                   <Link
                     href={link.href}
-                    className="text-gray-400 hover:text-blue-400 transition duration-200 inline-block"
+                    className="text-gray-600 dark:text-gray-400 hover:text-blue-600 dark:hover:text-blue-400 transition duration-200 inline-block"
                   >
                     {link.name}
                   </Link>
@@ -106,7 +106,7 @@ export default function Footer() {
             transition={{ delay: 0.2 }}
             className="text-center md:text-left"
           >
-            <h3 className="text-white font-semibold mb-3">Follow Us</h3>
+            <h3 className="text-gray-800 dark:text-white font-semibold mb-3">Follow Us</h3>
             <div className="flex justify-center md:justify-start space-x-4">
               {socialLinks.map((social, index) => (
                 <motion.a
@@ -118,14 +118,14 @@ export default function Footer() {
                   transition={{ delay: 0.3 + index * 0.05 }}
                   whileHover={{ scale: 1.2, y: -3 }}
                   whileTap={{ scale: 0.9 }}
-                  className="text-gray-400 hover:text-blue-400 transition duration-200 p-2 rounded-full hover:bg-gray-700"
+                  className="text-gray-600 dark:text-gray-400 hover:text-blue-600 dark:hover:text-blue-400 transition duration-200 p-2 rounded-full hover:bg-gray-200 dark:hover:bg-gray-700"
                   aria-label={social.name}
                 >
                   {social.icon}
                 </motion.a>
               ))}
             </div>
-            <p className="text-gray-400 text-sm mt-4">
+            <p className="text-gray-600 dark:text-gray-400 text-sm mt-4">
               Join our community for the latest updates and tips!
             </p>
           </motion.div>
@@ -137,12 +137,12 @@ export default function Footer() {
           whileInView={{ opacity: 1 }}
           viewport={{ once: true }}
           transition={{ delay: 0.4 }}
-          className="border-t border-gray-700 pt-6 text-center"
+          className="border-t border-gray-300 dark:border-gray-700 pt-6 text-center"
         >
-          <p className="text-gray-400 text-sm">
+          <p className="text-gray-600 dark:text-gray-400 text-sm">
             © {currentYear} ML Counter Guide. All game content belongs to Moonton.
           </p>
-          <p className="text-gray-500 text-xs mt-2">
+          <p className="text-gray-500 dark:text-gray-500 text-xs mt-2">
             Made with <span className="text-red-500">❤</span> for the Mobile Legends community
           </p>
         </motion.div>

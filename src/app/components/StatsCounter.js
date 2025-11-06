@@ -48,13 +48,13 @@ function Counter({ end, duration = 2000, label, icon }) {
       initial={{ opacity: 0, y: 20 }}
       whileInView={{ opacity: 1, y: 0 }}
       viewport={{ once: true }}
-      className="glass p-6 rounded-xl text-center shadow-lg border border-gray-700 hover:border-blue-500/50 transition-all duration-300 hover:scale-105"
+      className="glass p-6 rounded-xl text-center shadow-lg border border-gray-300 dark:border-gray-700 hover:border-blue-500/50 dark:hover:border-blue-400/50 transition-all duration-300 hover:scale-105 bg-white dark:bg-transparent"
     >
       <div className="text-5xl mb-2">{icon}</div>
-      <div className="text-4xl font-bold bg-gradient-to-r from-blue-400 to-purple-400 bg-clip-text text-transparent mb-2">
+      <div className="text-4xl font-bold bg-gradient-to-r from-blue-500 to-purple-600 dark:from-blue-400 dark:to-purple-400 bg-clip-text text-transparent mb-2">
         {count}+
       </div>
-      <div className="text-gray-400 font-medium">{label}</div>
+      <div className="text-gray-700 dark:text-gray-400 font-medium">{label}</div>
     </motion.div>
   );
 }
