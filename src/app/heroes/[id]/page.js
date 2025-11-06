@@ -1,9 +1,10 @@
 'use client';
 
-import { useState, useEffect } from 'react';
+import { useState, useEffect, use } from 'react';
 import Link from 'next/link';
 
 export default function HeroDetail({ params }) {
+  const resolvedParams = use(params);
   const [activeTab, setActiveTab] = useState('overview');
   const [isLoading, setIsLoading] = useState(true);
 
@@ -204,7 +205,7 @@ export default function HeroDetail({ params }) {
     }
   };
 
-  const hero = heroes[params.id];
+  const hero = heroes[resolvedParams.id];
 
   if (isLoading) {
     return (
@@ -553,9 +554,9 @@ export default function HeroDetail({ params }) {
       
       {/* Next/Previous Hero Navigation */}
       <div className="flex justify-between">
-        {parseInt(params.id) > 1 && (
+        {parseInt(resolvedParams.id) > 1 && (
           <Link
-            href={`/heroes/${parseInt(params.id) - 1}`}
+            href={`/heroes/${parseInt(resolvedParams.id) - 1}`}
             className="inline-flex items-center bg-gray-200 dark:bg-gray-800 hover:bg-gray-300 dark:hover:bg-gray-700 text-gray-800 dark:text-white py-2 px-4 rounded-lg transition duration-300"
           >
             <svg className="w-5 h-5 mr-2" fill="none" stroke="currentColor" viewBox="0 0 24 24" xmlns="http://www.w3.org/2000/svg">
@@ -565,9 +566,9 @@ export default function HeroDetail({ params }) {
           </Link>
         )}
 
-        {parseInt(params.id) < Object.keys(heroes).length && (
+        {parseInt(resolvedParams.id) < Object.keys(heroes).length && (
           <Link
-            href={`/heroes/${parseInt(params.id) + 1}`}
+            href={`/heroes/${parseInt(resolvedParams.id) + 1}`}
             className="inline-flex items-center bg-gray-200 dark:bg-gray-800 hover:bg-gray-300 dark:hover:bg-gray-700 text-gray-800 dark:text-white py-2 px-4 rounded-lg transition duration-300 ml-auto"
           >
             Next Hero
