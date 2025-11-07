@@ -202,6 +202,117 @@ export default function HeroDetail({ params }) {
         recommended: ['Warrior Boots', 'Endless Battle', 'Blade of Despair', 'Berserker\'s Fury', 'Blade of the Heptaseas', 'Immortality'],
         situational: ['Hunter Strike', 'Rose Gold Meteor', 'Malefic Roar']
       }
+    },
+    '6': {
+      id: 6,
+      name: 'Gusion',
+      role: 'Assassin',
+      difficulty: 'Hard',
+      description: 'Gusion is a highly mobile assassin with exceptional burst damage. He can eliminate enemies in seconds with his dagger combo.',
+      strengths: ['Extremely high burst damage', 'Excellent mobility', 'Low cooldowns with proper combo', 'Strong early to mid game'],
+      weaknesses: ['Requires high mechanical skill', 'Squishy and vulnerable to crowd control', 'Combo-dependent', 'Falls off late game if not ahead'],
+      counters: [
+        { id: 1, name: 'Miya', reason: 'Can burst Miya down before she can respond with her low HP pool' },
+        { id: 4, name: 'Karrie', reason: 'Can eliminate Karrie quickly with his burst combo' }
+      ],
+      countered_by: [
+        { id: 2, name: 'Tigreal', reason: 'Can lock down Gusion with crowd control, preventing his combo' },
+        { id: 8, name: 'Chou', reason: 'Can interrupt Gusion\'s combo with knock-up and has enough tankiness to survive' }
+      ],
+      synergies: [
+        { id: 3, name: 'Eudora', reason: 'Can follow up on Eudora\'s stun for guaranteed combo execution' },
+        { id: 5, name: 'Lancelot', reason: 'Double assassin comp can delete enemies instantly in team fights' }
+      ],
+      skills: [
+        { name: 'Dagger Specialist', type: 'Passive', description: 'Every time Gusion uses a skill, his next basic attack deals extra magic damage and reduces all skill cooldowns.' },
+        { name: 'Sword Spike', type: 'Skill 1', description: 'Gusion throws out multiple daggers in a fan-shaped area, dealing magic damage. Daggers can be recalled using this skill again.' },
+        { name: 'Shadowblade Slaughter', type: 'Skill 2', description: 'Gusion blinks in a specified direction, dealing magic damage to enemies along the way and marking them.' },
+        { name: 'Incandescence', type: 'Ultimate', description: 'Gusion channels his power and throws multiple daggers at once, dealing massive magic damage to enemies in a cone area.' }
+      ],
+      tips: [
+        'Master the dagger recall mechanic to maximize damage and reduce cooldowns',
+        'Use Shadowblade Slaughter to engage, burst, then use it again to escape',
+        'Practice your combo in training mode: Skill 1 → Ultimate → Skill 2 → Recall Skill 1',
+        'Focus on eliminating enemy damage dealers in the backline'
+      ],
+      build: {
+        recommended: ['Magic Shoes', 'Calamity Reaper', 'Holy Crystal', 'Divine Glaive', 'Blood Wings', 'Immortality'],
+        situational: ['Winter Truncheon', 'Genius Wand', 'Concentrated Energy']
+      }
+    },
+    '7': {
+      id: 7,
+      name: 'Estes',
+      role: 'Support',
+      difficulty: 'Easy',
+      description: 'Estes is a support hero with powerful healing abilities. He can sustain his team through extended fights and turn the tide of battle.',
+      strengths: ['Strongest healing in the game', 'Can sustain team through long fights', 'Provides crowd control immunity', 'Good poke damage'],
+      weaknesses: ['Very squishy', 'No escape abilities', 'Vulnerable to burst damage', 'Relies on team to deal damage'],
+      counters: [
+        { id: 3, name: 'Eudora', reason: 'Can heal through Eudora\'s burst if positioned safely' },
+        { id: 4, name: 'Karrie', reason: 'Can keep Karrie alive through sustained fights' }
+      ],
+      countered_by: [
+        { id: 5, name: 'Lancelot', reason: 'Can quickly eliminate Estes before he can heal his team' },
+        { id: 6, name: 'Gusion', reason: 'Can burst Estes down instantly with his combo' }
+      ],
+      synergies: [
+        { id: 1, name: 'Miya', reason: 'Can keep Miya alive while she deals consistent damage from range' },
+        { id: 4, name: 'Karrie', reason: 'Provides sustain for Karrie in extended team fights' }
+      ],
+      skills: [
+        { name: 'Moonlight Immersion', type: 'Passive', description: 'Every time Estes uses a skill, he regenerates HP for himself and nearby allies over time.' },
+        { name: 'Moonlight Immersion', type: 'Skill 1', description: 'Estes summons a rain of moonlight in an area, dealing magic damage to enemies and slowing them.' },
+        { name: 'Domain of Moon Goddess', type: 'Skill 2', description: 'Estes blesses an ally, restoring their HP and granting them immunity to crowd control effects briefly.' },
+        { name: 'Blessing of Moon Goddess', type: 'Ultimate', description: 'Estes channels the power of the moon goddess, continuously healing all nearby allies for several seconds.' }
+      ],
+      tips: [
+        'Stay behind your team and focus on keeping everyone alive',
+        'Use your Skill 2 to save allies from crowd control abilities',
+        'Position carefully to avoid being targeted by assassins',
+        'Use your ultimate when multiple allies are low on HP for maximum value'
+      ],
+      build: {
+        recommended: ['Magic Shoes', 'Enchanted Talisman', 'Necklace of Durance', 'Holy Crystal', 'Ice Queen Wand', 'Immortality'],
+        situational: ['Winter Truncheon', 'Oracle', 'Athena\'s Shield']
+      }
+    },
+    '8': {
+      id: 8,
+      name: 'Chou',
+      role: 'Fighter',
+      difficulty: 'Moderate',
+      description: 'Chou is a versatile fighter with excellent crowd control and mobility. He can be played as a tank or damage dealer depending on build.',
+      strengths: ['High mobility', 'Strong crowd control', 'Can block projectiles', 'Flexible build paths', 'Good at isolating enemies'],
+      weaknesses: ['Combo-dependent', 'Vulnerable when skills are on cooldown', 'Requires good timing', 'Moderate skill floor'],
+      counters: [
+        { id: 5, name: 'Lancelot', reason: 'Can interrupt Lancelot\'s combo with knock-up and sustain his burst' },
+        { id: 6, name: 'Gusion', reason: 'Can disrupt Gusion\'s combo and survive his burst damage' }
+      ],
+      countered_by: [
+        { id: 4, name: 'Karrie', reason: 'True damage penetrates Chou\'s defenses even with tank build' },
+        { id: 2, name: 'Tigreal', reason: 'Tigreal can lock down Chou and prevent him from executing combos' }
+      ],
+      synergies: [
+        { id: 3, name: 'Eudora', reason: 'Can set up Eudora\'s combo by kicking enemies into her range' },
+        { id: 2, name: 'Tigreal', reason: 'Can chain crowd control with Tigreal for devastating team fight combos' }
+      ],
+      skills: [
+        { name: 'Only Fast', type: 'Passive', description: 'When Chou uses a basic attack or skill, his movement speed increases and his next basic attack deals extra damage.' },
+        { name: 'Jeet Kune Do', type: 'Skill 1', description: 'Chou performs a three-part combo punch, each dealing physical damage. The third punch knocks enemies airborne.' },
+        { name: 'Shunpo', type: 'Skill 2', description: 'Chou dashes in a specified direction and gains a shield. His next basic attack within a short time will slow enemies. Can be used to block projectiles.' },
+        { name: 'The Way of Dragon', type: 'Ultimate', description: 'Chou delivers a powerful kick that knocks back and stuns an enemy hero, dealing physical damage based on the target\'s maximum HP.' }
+      ],
+      tips: [
+        'Use Skill 1\'s third hit to knock up enemies, then follow with your ultimate',
+        'Time your Skill 2 to block important enemy projectiles or crowd control',
+        'Master the Flicker + Ultimate combo to instantly kick priority targets',
+        'Build tank items if your team needs a frontline, damage items if you need to carry'
+      ],
+      build: {
+        recommended: ['Warrior Boots', 'Bloodlust Axe', 'Endless Battle', 'Blade of Despair', 'Oracle', 'Immortality'],
+        situational: ['Dominance Ice', 'Antique Cuirass', 'Thunder Belt', 'Brute Force Breastplate']
+      }
     }
   };
 
