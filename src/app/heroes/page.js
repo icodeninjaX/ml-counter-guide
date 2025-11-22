@@ -1,10 +1,11 @@
 'use client';
 
-import { useState, useEffect, useCallback } from 'react';
+import { useState, useEffect } from 'react';
 import { motion } from 'framer-motion';
 import RoleFilter from '../components/RoleFilter';
 import LoadingSkeleton from '../components/LoadingSkeleton';
 import Breadcrumb from '../components/Breadcrumb';
+import { heroes } from '../../data/heroes';
 
 // Custom debounce hook
 function useDebounce(value, delay) {
@@ -24,18 +25,6 @@ function useDebounce(value, delay) {
 }
 
 export default function Heroes() {
-  // Hero data with difficulty levels included
-  const heroes = [
-    { id: 1, name: 'Miya', role: 'Marksman', difficulty: 'Easy' },
-    { id: 2, name: 'Tigreal', role: 'Tank', difficulty: 'Easy' },
-    { id: 3, name: 'Eudora', role: 'Mage', difficulty: 'Easy' },
-    { id: 4, name: 'Karrie', role: 'Marksman', difficulty: 'Moderate' },
-    { id: 5, name: 'Lancelot', role: 'Assassin', difficulty: 'Hard' },
-    { id: 6, name: 'Gusion', role: 'Assassin', difficulty: 'Hard' },
-    { id: 7, name: 'Estes', role: 'Support', difficulty: 'Easy' },
-    { id: 8, name: 'Chou', role: 'Fighter', difficulty: 'Moderate' },
-  ];
-
   const [selectedRole, setSelectedRole] = useState('');
   const [searchQuery, setSearchQuery] = useState('');
   const [compareList, setCompareList] = useState([]);
