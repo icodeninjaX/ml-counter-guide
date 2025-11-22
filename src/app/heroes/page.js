@@ -1,6 +1,7 @@
 'use client';
 
 import { useState, useEffect } from 'react';
+import Image from 'next/image';
 import { motion } from 'framer-motion';
 import RoleFilter from '../components/RoleFilter';
 import LoadingSkeleton from '../components/LoadingSkeleton';
@@ -42,6 +43,29 @@ export default function Heroes() {
     return () => clearTimeout(timer);
   }, []);
 
+  // Back to top functionality
+  const [showBackToTop, setShowBackToTop] = useState(false);
+
+  useEffect(() => {
+    const handleScroll = () => {
+      if (window.scrollY > 300) {
+        setShowBackToTop(true);
+      } else {
+        setShowBackToTop(false);
+      }
+    };
+
+    window.addEventListener('scroll', handleScroll);
+    return () => window.removeEventListener('scroll', handleScroll);
+  }, []);
+
+  const scrollToTop = () => {
+    window.scrollTo({
+      top: 0,
+      behavior: 'smooth'
+    });
+  };
+
   // Filter heroes based on search and role selection
   const filteredHeroes = heroes
     .filter(hero => selectedRole ? hero.role === selectedRole : true)
@@ -75,9 +99,9 @@ export default function Heroes() {
   };
 
   return (
-    <div className="py-6">
+    <div className="py-4 md:py-6">
       <Breadcrumb />
-      <h1 className="text-4xl font-bold mb-8 text-center bg-clip-text text-transparent bg-gradient-to-r from-blue-500 to-purple-600 dark:from-blue-400 dark:to-purple-500">
+      <h1 className="text-3xl md:text-4xl font-bold mb-6 md:mb-8 text-center bg-clip-text text-transparent bg-gradient-to-r from-blue-500 to-purple-600 dark:from-blue-400 dark:to-purple-500">
         Mobile Legends Heroes
       </h1>
 
@@ -85,7 +109,7 @@ export default function Heroes() {
       <motion.div
         initial={{ opacity: 0, y: -20 }}
         animate={{ opacity: 1, y: 0 }}
-        className="mb-10 glass p-6 rounded-xl shadow-lg border border-gray-300 dark:border-gray-700 bg-white dark:bg-transparent"
+        className="mb-6 md:mb-10 glass p-4 md:p-6 rounded-xl shadow-lg border border-gray-300 dark:border-gray-700 bg-white dark:bg-transparent sticky top-4 z-40 backdrop-blur-md bg-opacity-90 dark:bg-opacity-80"
       >
         <div className="relative mb-6">
           <div className="absolute inset-y-0 left-0 pl-3 flex items-center pointer-events-none">
@@ -168,7 +192,7 @@ export default function Heroes() {
       {isLoading ? (
         <LoadingSkeleton />
       ) : (
-        <div className="grid grid-cols-1 sm:grid-cols-2 md:grid-cols-3 lg:grid-cols-4 gap-6">
+        <div className="grid grid-cols-1 sm:grid-cols-2 md:grid-cols-3 lg:grid-cols-4 gap-4 md:gap-6">
           {filteredHeroes.map((hero, index) => (
             <motion.div
               key={hero.id}
@@ -178,15 +202,28 @@ export default function Heroes() {
               whileHover={{ y: -8, scale: 1.02 }}
               className={`glass rounded-xl overflow-hidden shadow-lg border-2 bg-white dark:bg-transparent ${
                 compareList.includes(hero.id) ? 'border-blue-500 shadow-blue-500/50' : 'border-gray-300 dark:border-gray-700'
-              } hover:border-blue-500 transition-all duration-300 hover:shadow-2xl hover:shadow-blue-500/30`}
+              } hover:border-blue-500 transition-all duration-300 hover:shadow-2xl hover:shadow-blue-500/30 group`}
             >
-              <div className="p-6 relative overflow-hidden">
+              <div className="relative h-40 sm:h-48 w-full overflow-hidden bg-gray-200 dark:bg-gray-700">
+                <Image
+                  src={hero.image}
+                  alt={hero.name}
+                  fill
+                  className="object-cover transition-transform duration-500 group-hover:scale-110"
+                  sizes="(max-width: 768px) 100vw, (max-width: 1200px) 50vw, 33vw"
+                />
+                <div className="absolute inset-0 bg-gradient-to-t from-black/70 via-transparent to-transparent"></div>
+                <div className="absolute bottom-0 left-0 p-4 w-full">
+                  <h2 className="text-2xl font-bold text-white drop-shadow-md">
+                    {hero.name}
+                  </h2>
+                </div>
+              </div>
+              
+              <div className="p-4 md:p-6 relative overflow-hidden">
                 {/* Gradient overlay on hover */}
-                <div className="absolute inset-0 bg-gradient-to-br from-blue-500/0 to-purple-500/0 hover:from-blue-500/10 hover:to-purple-500/10 transition-all duration-300 pointer-events-none"></div>
+                <div className="absolute inset-0 bg-gradient-to-br from-blue-500/0 to-purple-500/0 hover:from-blue-500/5 hover:to-purple-500/5 transition-all duration-300 pointer-events-none"></div>
 
-                <h2 className="text-2xl font-bold mb-2 bg-gradient-to-r from-blue-500 to-purple-600 dark:from-blue-400 dark:to-purple-400 bg-clip-text text-transparent relative z-10">
-                  {hero.name}
-                </h2>
                 <div className="flex flex-wrap gap-2 mb-4 relative z-10">
                   <span className="inline-block glass px-3 py-1 rounded-full text-sm font-semibold text-gray-700 dark:text-gray-300 border border-gray-400 dark:border-gray-600 bg-gray-100 dark:bg-transparent">
                     {hero.role}
@@ -331,6 +368,21 @@ export default function Heroes() {
             </div>
           </motion.div>
         </motion.div>
+      )}
+      {/* Back to Top Button */}
+      {showBackToTop && (
+        <motion.button
+          initial={{ opacity: 0, scale: 0 }}
+          animate={{ opacity: 1, scale: 1 }}
+          exit={{ opacity: 0, scale: 0 }}
+          onClick={scrollToTop}
+          className="fixed bottom-6 right-6 p-3 bg-blue-600 hover:bg-blue-700 text-white rounded-full shadow-lg z-50 transition-colors duration-300"
+          aria-label="Back to top"
+        >
+          <svg className="w-6 h-6" fill="none" stroke="currentColor" viewBox="0 0 24 24" xmlns="http://www.w3.org/2000/svg">
+            <path strokeLinecap="round" strokeLinejoin="round" strokeWidth={2} d="M5 10l7-7m0 0l7 7m-7-7v18" />
+          </svg>
+        </motion.button>
       )}
     </div>
   );

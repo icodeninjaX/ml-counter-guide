@@ -34,26 +34,28 @@ body {
   );
 }
 
-/* Custom Scrollbar */
-::-webkit-scrollbar {
-  width: 10px;
-}
+/* Custom Scrollbar - Desktop only to preserve native touch feel on mobile */
+@media (pointer: fine) {
+  ::-webkit-scrollbar {
+    width: 10px;
+  }
 
-::-webkit-scrollbar-track {
-  background: rgba(229, 231, 235, 0.5);
-}
+  ::-webkit-scrollbar-track {
+    background: rgba(229, 231, 235, 0.5);
+  }
 
-.dark ::-webkit-scrollbar-track {
-  background: rgba(31, 41, 55, 0.5);
-}
+  .dark ::-webkit-scrollbar-track {
+    background: rgba(31, 41, 55, 0.5);
+  }
 
-::-webkit-scrollbar-thumb {
-  background: rgba(59, 130, 246, 0.7);
-  border-radius: 5px;
-}
+  ::-webkit-scrollbar-thumb {
+    background: rgba(59, 130, 246, 0.7);
+    border-radius: 5px;
+  }
 
-::-webkit-scrollbar-thumb:hover {
-  background: rgba(59, 130, 246, 0.9);
+  ::-webkit-scrollbar-thumb:hover {
+    background: rgba(59, 130, 246, 0.9);
+  }
 }
 
 /* Animation for cards */

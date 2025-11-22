@@ -32,7 +32,7 @@ export default function Breadcrumb() {
   ];
 
   return (
-    <nav className="mb-6" aria-label="Breadcrumb">
+    <nav className="mb-6 overflow-x-auto whitespace-nowrap pb-2 -mx-4 px-4 md:mx-0 md:px-0 md:pb-0 scrollbar-hide" aria-label="Breadcrumb">
       <motion.ol
         initial={{ opacity: 0, y: -10 }}
         animate={{ opacity: 1, y: 0 }}
@@ -47,7 +47,7 @@ export default function Breadcrumb() {
               initial={{ opacity: 0, x: -10 }}
               animate={{ opacity: 1, x: 0 }}
               transition={{ delay: index * 0.05 }}
-              className="flex items-center"
+              className="flex items-center flex-shrink-0"
             >
               {!isLast ? (
                 <>
@@ -58,7 +58,7 @@ export default function Breadcrumb() {
                     {item.name}
                   </Link>
                   <svg
-                    className="w-4 h-4 mx-2 text-gray-500"
+                    className="w-4 h-4 mx-2 text-gray-500 flex-shrink-0"
                     fill="none"
                     stroke="currentColor"
                     viewBox="0 0 24 24"
@@ -73,7 +73,7 @@ export default function Breadcrumb() {
                   </svg>
                 </>
               ) : (
-                <span className="text-gray-400 font-medium">{item.name}</span>
+                <span className="text-gray-400 font-medium truncate max-w-[150px] md:max-w-none">{item.name}</span>
               )}
             </motion.li>
           );

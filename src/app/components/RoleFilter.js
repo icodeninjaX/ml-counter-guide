@@ -16,7 +16,7 @@ export default function RoleFilter({ selectedRole, setSelectedRole }) {
   return (
     <div>
       <label className="block text-gray-300 mb-3 font-medium">Filter by Role:</label>
-      <div className="flex flex-wrap gap-2">
+      <div className="flex overflow-x-auto pb-2 md:pb-0 gap-2 scrollbar-hide -mx-4 px-4 md:mx-0 md:px-0 mask-image-linear-gradient">
         {roles.map((role, index) => {
           const isActive = (role.id === 'all' && selectedRole === '') || selectedRole === role.id;
 
@@ -29,7 +29,7 @@ export default function RoleFilter({ selectedRole, setSelectedRole }) {
               transition={{ delay: index * 0.05 }}
               whileHover={{ scale: 1.05, y: -2 }}
               whileTap={{ scale: 0.95 }}
-              className={`px-4 py-2 rounded-lg transition-all duration-300 flex items-center relative overflow-hidden ${
+              className={`px-4 py-2 rounded-lg transition-all duration-300 flex items-center whitespace-nowrap flex-shrink-0 relative overflow-hidden ${
                 isActive
                   ? 'bg-gradient-to-r from-blue-600 to-blue-700 text-white shadow-lg shadow-blue-500/50'
                   : 'glass text-gray-300 hover:bg-gray-600 border border-gray-600'
