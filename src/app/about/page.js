@@ -107,7 +107,7 @@ export default function About() {
                                 </h3>
                                 <p className="text-gray-700 dark:text-gray-300">
                                     Use the knowledge gained from this guide during the draft phase to make informed decisions about
-                                    which heroes to pick or ban based on your opponents' selections.
+                                    which heroes to pick or ban based on your opponents&apos; selections.
                                 </p>
                             </div>
                         </div>
@@ -130,7 +130,7 @@ export default function About() {
                     <ul className="space-y-3 text-gray-700 dark:text-gray-300">
                         <li className="flex gap-3">
                             <span className="text-blue-500 font-bold">•</span>
-                            <span><strong>Hero Abilities:</strong> We analyze each hero's skill set to identify natural advantages and disadvantages</span>
+                            <span><strong>Hero Abilities:</strong> We analyze each hero&apos;s skill set to identify natural advantages and disadvantages</span>
                         </li>
                         <li className="flex gap-3">
                             <span className="text-blue-500 font-bold">•</span>
@@ -233,8 +233,8 @@ export default function About() {
                         to provide a fast, responsive, and visually appealing user experience.
                     </p>
                     <p className="text-gray-700 dark:text-gray-300 leading-relaxed">
-                        We're continuously updating our hero database and counter information to keep up with game patches and meta changes.
-                        If you have suggestions or feedback, we'd love to hear from you!
+                        We&apos;re continuously updating our hero database and counter information to keep up with game patches and meta changes.
+                        If you have suggestions or feedback, we&apos;d love to hear from you!
                     </p>
                 </motion.section>
 

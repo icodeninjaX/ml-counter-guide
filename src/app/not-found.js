@@ -27,7 +27,7 @@ export default function NotFound() {
                         Hero Not Found
                     </h2>
                     <p className="text-lg text-gray-600 dark:text-gray-300 mb-8">
-                        Looks like this hero has retreated to base! The page you're looking for doesn't exist.
+                        Looks like this hero has retreated to base! The page you&apos;re looking for doesn&apos;t exist.
                     </p>
                 </div>
 
@@ -81,7 +81,7 @@ export default function NotFound() {
                                 hero.name.toLowerCase().includes(searchTerm.toLowerCase())
                             ).length === 0 && (
                                     <p className="text-gray-600 dark:text-gray-400">
-                                        No heroes found matching "{searchTerm}"
+                                        No heroes found matching &quot;{searchTerm}&quot;
                                     </p>
                                 )}
                         </div>
