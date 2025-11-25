@@ -24,6 +24,7 @@ export default function Navbar() {
           <button
             className="md:hidden text-gray-300 hover:text-white"
             onClick={() => setMenuOpen(!menuOpen)}
+            aria-label="Toggle menu"
           >
             <svg className="w-6 h-6" fill="none" stroke="currentColor" viewBox="0 0 24 24" xmlns="http://www.w3.org/2000/svg">
               {menuOpen ? (
@@ -34,9 +35,11 @@ export default function Navbar() {
             </svg>
           </button>
 
+          {/* Desktop navigation */}
           <div className="hidden md:flex space-x-6">
             <Link href="/" className="text-gray-300 hover:text-blue-400 transition duration-200">Home</Link>
             <Link href="/heroes" className="text-gray-300 hover:text-blue-400 transition duration-200">Heroes</Link>
+            <Link href="/analyze" className="text-gray-300 hover:text-blue-400 transition duration-200">Analyze Replay</Link>
             <Link href="/about" className="text-gray-300 hover:text-blue-400 transition duration-200">About</Link>
           </div>
         </div>
@@ -46,6 +49,7 @@ export default function Navbar() {
           <div className="md:hidden py-3 border-t border-gray-700 space-y-2">
             <Link href="/" className="block text-gray-300 hover:text-blue-400 py-2 transition duration-200">Home</Link>
             <Link href="/heroes" className="block text-gray-300 hover:text-blue-400 py-2 transition duration-200">Heroes</Link>
+            <Link href="/analyze" className="block text-gray-300 hover:text-blue-400 py-2 transition duration-200">Analyze Replay</Link>
             <Link href="/about" className="block text-gray-300 hover:text-blue-400 py-2 transition duration-200">About</Link>
           </div>
         )}
